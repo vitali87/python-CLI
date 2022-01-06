@@ -2,7 +2,7 @@ import fire
 
 from typing import List
 
-class AverageList(List[int]):
+class AverageList(List):
     @property
     def average(self) -> float:
         return sum(self)/ len(self)
