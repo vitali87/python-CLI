@@ -12,3 +12,5 @@ Or you can add the following line into your ``~/.bashrc``:
 Now you can use this syntax:
 
 ``py2cli AverageList average --iterable=[1,2,3,4.5]``
+
+``py2cli Is even 9 ``
