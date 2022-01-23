@@ -1,33 +1,5 @@
 import fire
-
-from typing import List
-import numpy as np
-
-
-class Describe(List):
-    @property
-    def average(self) -> float:
-        return sum(self) / len(self)
-
-    def arg_nth_max(self, n: int):
-        assert 1 <= n <= len(self), f"Index Out of Bounds: should be between 1 and {len(self)}"
-        k = 1
-        while k < n:
-            if k == n - 1:
-                break
-            self[np.argmax(self)] = min(self)
-            k += 1
-        return np.argmax(self)
-
-    def arg_nth_min(self, n: int):
-        assert 1 <= n <= len(self), f"Index Out of Bounds: should be between 1 and {len(self)}"
-        k = 1
-        while k < n:
-            if k == n - 1:
-                break
-            self[np.argmin(self)] = max(self)
-            k += 1
-        return np.argmin(self)
+import pandas as pd
 
 
 class Is(object):
@@ -45,6 +17,21 @@ class Is(object):
     @staticmethod
     def even(number: int) -> bool:
         return number % 2 == 0
+
+
+def drop(what, number_or_name, csv):
+    df = pd.read_csv(csv)
+
+    if what == "col":
+        df.drop(df.columns[number_or_name - 1],
+                axis=1,
+                inplace=True) if isinstance(number_or_name, int) \
+            else df.drop(number_or_name, axis=1, inplace=True)
+    elif what == "row":
+        df.drop([number_or_name - 1], inplace=True)
+
+    df.to_csv(csv, index=False)
+    print(df)
 
 
 if __name__ == '__main__':
